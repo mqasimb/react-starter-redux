@@ -4,14 +4,17 @@ const actions = require('../actions/index');
 var initialState = {
         randomNumber: Math.floor(Math.random()*100),
         helper: false,
-        currentNumber: '',
+        currentNumber: -1,
         hotorcold: '',
-        correct: false
+        correct: false,
+        counter: 0,
+        currentGuesses: []
     };
 
 var helperReducer = function(state, action) {
     state = state || initialState;
-    var newState = state;
+    
+    var newState = Object.assign({}, state);
     
     if(action.type === actions.ASK_FOR_HELP) {
         newState.helper = true;
@@ -29,17 +32,21 @@ var helperReducer = function(state, action) {
     }
     
     if(action.type === actions.SUBMIT_A_NUMBER) {
-        if(parseInt(state.currentNumber) === state.randomNumber) {
+        //Also check for duplicates
+        newState.counter++;
+        newState.currentGuesses.push(newState.currentNumber);
+        if(newState.currentNumber == newState.randomNumber) {
+            newState.hotorcold = 'Correct';
             newState.correct = true;
         }
-        else if(Math.abs(state.randomNumber - parseInt(state.currentNumber)) <= 10) {
-                newState.hotorcold = 'hot';
+        else if(Math.abs(newState.randomNumber - newState.currentNumber) <= 10) {
+                newState.hotorcold = 'Hot';
             }
         else {
-                newState.hotorcold = 'cold';
+                newState.hotorcold = 'Cold';
             }
         return newState;
-        }
+    }
     
     if(action.type === actions.GENERATE_NEW_RANDOM_NUMBER) {
         newState.randomNumber = Math.floor(Math.random()*100)
