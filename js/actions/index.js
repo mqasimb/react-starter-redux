@@ -60,6 +60,22 @@ var fetchGuessesError = function(error) {
     };
 };
 
+var SAVE_GUESSES_SUCCESS = 'SAVE_GUESSES_SUCCESS';
+var saveGuessesSuccess = function(fewestGuesses) {
+    return {
+        type: SAVE_GUESSES_SUCCESS,
+        fewestGuesses: fewestGuesses,
+    };
+};
+
+var SAVE_GUESSES_ERROR= 'SAVE_DESCRIPTION_ERROR';
+var saveGuessesError = function(error) {
+    return {
+        type: SAVE_GUESSES_ERROR,
+        error: error
+    };
+};
+
 var fetchFewestGuesses = function() {
     return function(dispatch) {
         var url = 'https://quiz-app-bqasim381.c9users.io/fewest-guesses';
@@ -113,22 +129,23 @@ var saveFewestGuesses = function(fewestGuesses) {
         })
         .then(function(data) {
             return dispatch(
-                fetchGuessesSuccess(fewestGuesses)
+                saveGuessesSuccess(fewestGuesses)
             );
         })
         .catch(function(error) {
             return dispatch(
-                fetchGuessesError(fewestGuesses, error)
+                saveGuessesError(error)
             );
         });
     }
 }
 
 exports.fetchFewestGuesses = fetchFewestGuesses;
-
 exports.FETCH_GUESSES_SUCCESS = FETCH_GUESSES_SUCCESS;
 exports.FETCH_GUESSES_ERROR = FETCH_GUESSES_ERROR;
 exports.saveFewestGuesses = saveFewestGuesses;
+exports.SAVE_GUESSES_SUCCESS = SAVE_GUESSES_SUCCESS;
+exports.SAVE_GUESSES_ERROR = SAVE_GUESSES_ERROR;
 
 exports.ASK_FOR_HELP = ASK_FOR_HELP;
 exports.askForHelp = askForHelp;

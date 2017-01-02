@@ -18,6 +18,9 @@ class Input extends React.Component {
         var listOfGuesses = this.props.currentGuesses.map((guess,index) =>
             <li key={index} id={index}>{guess}</li>
         )
+        if(this.props.correct === true) {
+            this.props.dispatch(actions.saveFewestGuesses(this.props.counter));
+        }
         return (
         <div>
         <form onSubmit={this.addNewGuess.bind(this)}>
@@ -43,7 +46,8 @@ function mapStateToProps(state, props) {
         currentGuesses: state.currentGuesses,
         status: state.hotorcold,
         correct: state.correct,
-        fewestGuesses: state.fewestGuesses
+        fewestGuesses: state.fewestGuesses,
+        counter: state.counter
     })
 }
 

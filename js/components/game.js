@@ -8,12 +8,13 @@ const NewGame = require('./newgame');
 const actions = require('../actions/index')
 
 class Game extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         this.props.dispatch(actions.fetchFewestGuesses());
     }
     
     startNewGame() {
-        this.props.dispatch(actions.startNewGame())
+        this.props.dispatch(actions.fetchFewestGuesses());
+        this.props.dispatch(actions.startNewGame());
     }
     render() {
         return (
