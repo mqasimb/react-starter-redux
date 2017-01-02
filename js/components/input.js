@@ -42,7 +42,8 @@ function mapStateToProps(state, props) {
         game: state,
         currentGuesses: state.currentGuesses,
         status: state.hotorcold,
-        correct: state.correct
+        correct: state.correct,
+        fewestGuesses: state.fewestGuesses
     })
 }
 

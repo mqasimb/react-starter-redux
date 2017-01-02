@@ -7,10 +7,14 @@ const Input = require('./input');
 const actions = require('../actions/index')
 
 class Game extends React.Component {
+    componentDidMount() {
+        this.props.dispatch(actions.fetchFewestGuesses());
+    }
     render() {
         return (
             <div className="main-game">
             <Input />
+            {this.props.fewestGuesses}
             </div>
             )
     }
@@ -18,7 +22,8 @@ class Game extends React.Component {
 
 function mapStateToProps(state, props) {
     return ({
-        game: state
+        game: state,
+        fewestGuesses: state.fewestGuesses
     })
 }
 

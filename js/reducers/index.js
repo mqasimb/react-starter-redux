@@ -8,7 +8,8 @@ var initialState = {
         hotorcold: '',
         correct: false,
         counter: 0,
-        currentGuesses: []
+        currentGuesses: [],
+        fewestGuesses: null
     };
 
 var helperReducer = function(state, action) {
@@ -32,7 +33,7 @@ var helperReducer = function(state, action) {
     }
     
     if(action.type === actions.SUBMIT_A_NUMBER) {
-        //Also check for duplicates
+        //Also check for duplicates)
         newState.counter++;
         newState.currentGuesses.push(newState.currentNumber);
         if(newState.currentNumber == newState.randomNumber) {
@@ -55,6 +56,11 @@ var helperReducer = function(state, action) {
     
     if(action.type === actions.START_NEW_GAME) {
         return initialState;
+    }
+    
+    if(action.type === actions.FETCH_GUESSES_SUCCESS) {
+        newState.fewestGuesses = action.fewestGuesses;
+        return newState;
     }
     
     return state;
