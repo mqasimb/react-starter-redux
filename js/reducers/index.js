@@ -55,7 +55,16 @@ var helperReducer = function(state, action) {
     }
     
     if(action.type === actions.START_NEW_GAME) {
-        return initialState;
+        return Object.assign({}, {
+            randomNumber: Math.floor(Math.random()*100),
+            helper: false,
+            currentNumber: -1,
+            hotorcold: '',
+            correct: false,
+            counter: 0,
+            currentGuesses: [],
+            fewestGuesses: state.fewestGuesses
+            });
     }
     
     if(action.type === actions.FETCH_GUESSES_SUCCESS) {
